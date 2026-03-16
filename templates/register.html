@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}Register — StudyForge AI{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card reveal">
+
+        <div class="auth-brand">
+            <span class="brand-icon-lg">⚡</span>
+            <h1 class="auth-logo">StudyForge <span>AI</span></h1>
+            <p class="auth-tagline">Your AI-powered study companion</p>
+        </div>
+
+        <h2 class="auth-heading">Create an account</h2>
+        <p class="auth-sub">Join thousands of students studying smarter</p>
+
+        <form class="auth-form" method="POST" action="{{ url_for('register') }}">
+            <label class="auth-field">
+                <span>Username</span>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Choose a username (min. 3 chars)"
+                    required
+                    autocomplete="username"
+                    minlength="3"
+                    value="{{ request.form.get('username', '') }}"
+                />
+            </label>
+
+            <label class="auth-field">
+                <span>Email Address</span>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                    autocomplete="email"
+                    value="{{ request.form.get('email', '') }}"
+                />
+            </label>
+
+            <label class="auth-field">
+                <span>Password</span>
+                <div class="password-wrapper">
+                    <input
+                        type="password"
+                        name="password"
+                        id="password-input"
+                        placeholder="Min. 6 characters"
+                        required
+                        minlength="6"
+                        autocomplete="new-password"
+                        oninput="checkStrength(this.value)"
+                    />
+                    <button type="button" class="eye-toggle" onclick="togglePassword('password-input', this)">👁</button>
+                </div>
+                <div class="strength-bar" id="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+                <span class="strength-label" id="strength-label"></span>
+            </label>
+
+            <label class="auth-field">
+                <span>Confirm Password</span>
+                <div class="password-wrapper">
+                    <input
+                        type="password"
+                        name="confirm"
+                        id="confirm-input"
+                        placeholder="Repeat your password"
+                        required
+                        autocomplete="new-password"
+                    />
+                    <button type="button" class="eye-toggle" onclick="togglePassword('confirm-input', this)">👁</button>
+                </div>
+            </label>
+
+            <button type="submit" class="btn-auth">Create Account</button>
+        </form>
+
+        <p class="auth-switch">
+            Already have an account?
+            <a href="{{ url_for('login') }}">Sign in</a>
+        </p>
+    </div>
+
+    <!-- Decorative side panel -->
+    <div class="auth-side">
+        <div class="auth-side-content">
+            <h2>Start your journey<br/>today — it's free.</h2>
+            <ul class="auth-feature-list">
+                <li><span class="feat-icon">✅</span> No credit card required</li>
+                <li><span class="feat-icon">🔐</span> Secure & private</li>
+                <li><span class="feat-icon">⚡</span> Instant AI responses</li>
+                <li><span class="feat-icon">📊</span> Personalized to your goals</li>
+                <li><span class="feat-icon">🌙</span> Study anytime, anywhere</li>
+            </ul>
+            <p class="auth-model-badge">Powered by <strong>Gemini AI</strong></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+    }
+}
+
+function checkStrength(val) {
+    const fill = document.getElementById('strength-fill');
+    const label = document.getElementById('strength-label');
+    if (!fill) return;
+    let score = 0;
+    if (val.length >= 6) score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+
+    const levels = [
+        { pct: '20%', color: '#ef4444', text: 'Very weak' },
+        { pct: '40%', color: '#f97316', text: 'Weak' },
+        { pct: '60%', color: '#eab308', text: 'Fair' },
+        { pct: '80%', color: '#22c55e', text: 'Strong' },
+        { pct: '100%', color: '#16a34a', text: 'Very strong' },
+    ];
+    const lvl = levels[Math.max(0, score - 1)] || levels[0];
+    fill.style.width = lvl.pct;
+    fill.style.background = lvl.color;
+    label.textContent = val.length ? lvl.text : '';
+    label.style.color = lvl.color;
+}
+</script>
+{% endblock %}

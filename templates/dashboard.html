@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — StudyForge AI{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+
+    <!-- Page header -->
+    <header class="page-header reveal">
+        <div>
+            <p class="eyebrow">WELCOME BACK</p>
+            <h1>Hello, {{ current_user.username }} 👋</h1>
+            <p class="page-lead">What would you like to work on today?</p>
+        </div>
+        <p class="model-badge">Powered by Gemini AI</p>
+    </header>
+
+    <!-- Tool cards -->
+    <div class="tool-grid">
+        <a href="{{ url_for('planner') }}" class="tool-card reveal" style="--delay:0.05s; --tc-color:#f05d23">
+            <div class="tool-card-icon">📅</div>
+            <div class="tool-card-body">
+                <h3>Study Planner</h3>
+                <p>Generate a personalized weekly study roadmap with milestones and time blocks.</p>
+            </div>
+            <div class="tool-card-arrow">→</div>
+        </a>
+
+        <a href="{{ url_for('quiz') }}" class="tool-card reveal" style="--delay:0.1s; --tc-color:#0f9d8b">
+            <div class="tool-card-icon">🎯</div>
+            <div class="tool-card-body">
+                <h3>Quiz Generator</h3>
+                <p>Practice with mixed MCQ and short-answer questions on any topic.</p>
+            </div>
+            <div class="tool-card-arrow">→</div>
+        </a>
+
+        <a href="{{ url_for('flashcards') }}" class="tool-card reveal" style="--delay:0.15s; --tc-color:#7c3aed">
+            <div class="tool-card-icon">🃏</div>
+            <div class="tool-card-body">
+                <h3>Flashcards</h3>
+                <p>Create rapid-review Q&A cards for any subject — ideal for spaced repetition.</p>
+            </div>
+            <div class="tool-card-arrow">→</div>
+        </a>
+
+        <a href="{{ url_for('chat') }}" class="tool-card reveal" style="--delay:0.2s; --tc-color:#0ea5e9">
+            <div class="tool-card-icon">💬</div>
+            <div class="tool-card-body">
+                <h3>Ask AI</h3>
+                <p>Get instant, teacher-style explanations with examples and practice tasks.</p>
+            </div>
+            <div class="tool-card-arrow">→</div>
+        </a>
+
+        <a href="{{ url_for('summarizer') }}" class="tool-card reveal" style="--delay:0.25s; --tc-color:#e11d48">
+            <div class="tool-card-icon">📄</div>
+            <div class="tool-card-body">
+                <h3>Doc Summarizer</h3>
+                <p>Upload PDF, DOCX, TXT or MD and get exam-ready summaries in seconds.</p>
+            </div>
+            <div class="tool-card-arrow">→</div>
+        </a>
+
+        <a href="{{ url_for('revision') }}" class="tool-card reveal" style="--delay:0.3s; --tc-color:#d97706">
+            <div class="tool-card-icon">🔄</div>
+            <div class="tool-card-body">
+                <h3>Revision Rescue</h3>
+                <p>Behind schedule? Get a 7-day adaptive plan to get back on track fast.</p>
+            </div>
+            <div class="tool-card-arrow">→</div>
+        </a>
+    </div>
+</div>
+{% endblock %}

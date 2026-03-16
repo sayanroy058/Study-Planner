@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Quiz Generator — StudyForge AI{% endblock %}
+
+{% block content %}
+<div class="feature-page">
+    <header class="page-header reveal">
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="back-link">← Dashboard</a>
+            <h1>🎯 Quiz Generator</h1>
+            <p class="page-lead">Practice with mixed conceptual and short-answer questions.</p>
+        </div>
+    </header>
+
+    <div class="feature-layout">
+        <div class="feature-form-panel reveal" style="--delay:0.05s">
+            <form id="quiz-form" class="form-grid">
+                <label class="full-width">
+                    Topic
+                    <input type="text" name="topic" placeholder="e.g. Operating Systems, Photosynthesis" required />
+                </label>
+                <label>
+                    Difficulty
+                    <select name="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </label>
+                <label>
+                    Number of Questions
+                    <input type="number" name="questionCount" min="3" max="20" value="8" required />
+                </label>
+                <button type="submit" class="btn-primary full-width">Generate Quiz ✨</button>
+            </form>
+        </div>
+
+        <div class="feature-result-panel reveal" style="--delay:0.1s">
+            <div class="result-toolbar">
+                <span class="result-label">Your Quiz</span>
+                <button type="button" class="btn-icon-sm" data-download-target="quiz-output" data-download-name="quiz.md" title="Download">⬇ Download</button>
+            </div>
+            <div id="quiz-output" class="result-box">
+                <p class="placeholder">Your quiz will appear here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

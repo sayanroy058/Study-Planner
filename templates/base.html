@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}StudyForge AI{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,300..800&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+    <!-- Background decorations -->
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+    <div class="bg-grid"></div>
+
+    {% if current_user.is_authenticated %}
+    <!-- Top navigation bar -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="{{ url_for('dashboard') }}" class="navbar-brand">
+                <span class="brand-icon">⚡</span>
+                <span class="brand-name">StudyForge <span class="brand-ai">AI</span></span>
+            </a>
+
+            <div class="navbar-links">
+                <a href="{{ url_for('planner') }}" class="nav-link {% if request.endpoint == 'planner' %}active{% endif %}">
+                    <span class="nav-icon">📅</span> Planner
+                </a>
+                <a href="{{ url_for('quiz') }}" class="nav-link {% if request.endpoint == 'quiz' %}active{% endif %}">
+                    <span class="nav-icon">🎯</span> Quiz
+                </a>
+                <a href="{{ url_for('flashcards') }}" class="nav-link {% if request.endpoint == 'flashcards' %}active{% endif %}">
+                    <span class="nav-icon">🃏</span> Flashcards
+                </a>
+                <a href="{{ url_for('chat') }}" class="nav-link {% if request.endpoint == 'chat' %}active{% endif %}">
+                    <span class="nav-icon">💬</span> Ask AI
+                </a>
+                <a href="{{ url_for('summarizer') }}" class="nav-link {% if request.endpoint == 'summarizer' %}active{% endif %}">
+                    <span class="nav-icon">📄</span> Summarizer
+                </a>
+                <a href="{{ url_for('revision') }}" class="nav-link {% if request.endpoint == 'revision' %}active{% endif %}">
+                    <span class="nav-icon">🔄</span> Revision
+                </a>
+            </div>
+
+            <div class="navbar-right">
+                <div class="nav-user">
+                    <div class="nav-avatar">{{ current_user.username[0].upper() }}</div>
+                    <span class="nav-username">{{ current_user.username }}</span>
+                </div>
+                <a href="{{ url_for('logout') }}" class="btn-nav-logout">Logout</a>
+            </div>
+
+            <!-- Hamburger for mobile -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <!-- Mobile drawer -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="{{ url_for('planner') }}" class="nav-link">📅 Planner</a>
+            <a href="{{ url_for('quiz') }}" class="nav-link">🎯 Quiz</a>
+            <a href="{{ url_for('flashcards') }}" class="nav-link">🃏 Flashcards</a>
+            <a href="{{ url_for('chat') }}" class="nav-link">💬 Ask AI</a>
+            <a href="{{ url_for('summarizer') }}" class="nav-link">📄 Summarizer</a>
+            <a href="{{ url_for('revision') }}" class="nav-link">🔄 Revision</a>
+            <a href="{{ url_for('logout') }}" class="nav-link danger">Logout</a>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+            <span>{{ message }}</span>
+            <button class="flash-close" onclick="this.parentElement.remove()">✕</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Page content -->
+    <main class="page-content {% if current_user.is_authenticated %}with-nav{% endif %}">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+
+    <script>
+        // Hamburger toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+                hamburger.classList.toggle('open');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Flashcards — StudyForge AI{% endblock %}
+
+{% block content %}
+<div class="feature-page">
+    <header class="page-header reveal">
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="back-link">← Dashboard</a>
+            <h1>🃏 Flashcards</h1>
+            <p class="page-lead">Create rapid-review Q&A cards for any topic.</p>
+        </div>
+    </header>
+
+    <div class="feature-layout">
+        <div class="feature-form-panel reveal" style="--delay:0.05s">
+            <form id="flashcards-form" class="form-grid">
+                <label class="full-width">
+                    Topic
+                    <input type="text" name="topic" placeholder="e.g. Computer Networks, Cell Biology" required />
+                </label>
+                <label>
+                    Difficulty
+                    <select name="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </label>
+                <label>
+                    Number of Cards
+                    <input type="number" name="cardCount" min="4" max="25" value="10" required />
+                </label>
+                <button type="submit" class="btn-primary full-width">Generate Flashcards ✨</button>
+            </form>
+        </div>
+
+        <div class="feature-result-panel reveal" style="--delay:0.1s">
+            <div class="result-toolbar">
+                <span class="result-label">Your Flashcards</span>
+                <button type="button" class="btn-icon-sm" data-download-target="flashcards-output" data-download-name="flashcards.md" title="Download">⬇ Download</button>
+            </div>
+            <div id="flashcards-output" class="result-box">
+                <p class="placeholder">Flashcards will appear here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

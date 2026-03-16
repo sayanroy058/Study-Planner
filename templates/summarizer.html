@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Doc Summarizer — StudyForge AI{% endblock %}
+
+{% block content %}
+<div class="feature-page">
+    <header class="page-header reveal">
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="back-link">← Dashboard</a>
+            <h1>📄 Doc Summarizer</h1>
+            <p class="page-lead">Upload any document and get an exam-ready summary in seconds.</p>
+        </div>
+    </header>
+
+    <div class="feature-layout">
+        <div class="feature-form-panel reveal" style="--delay:0.05s">
+            <form id="summary-form" class="form-grid">
+                <label class="full-width upload-label">
+                    <span>Select Document</span>
+                    <div class="file-drop-zone" id="file-drop-zone">
+                        <span class="file-icon">📂</span>
+                        <span class="file-drop-text">Drag &amp; drop or click to browse</span>
+                        <span class="file-types">PDF · DOCX · TXT · MD — max 20 MB</span>
+                        <input type="file" name="file" id="file-input" accept=".txt,.md,.pdf,.docx" required />
+                    </div>
+                    <span class="selected-file-name" id="selected-file-name"></span>
+                </label>
+                <button type="submit" class="btn-primary full-width">Summarize Document ✨</button>
+            </form>
+        </div>
+
+        <div class="feature-result-panel reveal" style="--delay:0.1s">
+            <div class="result-toolbar">
+                <span class="result-label">Document Summary</span>
+                <button type="button" class="btn-icon-sm" data-download-target="summary-output" data-download-name="document-summary.md" title="Download">⬇ Download</button>
+            </div>
+            <div id="summary-output" class="result-box">
+                <p class="placeholder">Document summary appears here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// File drag & drop and name display
+const dropZone = document.getElementById('file-drop-zone');
+const fileInput = document.getElementById('file-input');
+const fileName = document.getElementById('selected-file-name');
+
+if (dropZone && fileInput) {
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            fileName.textContent = e.dataTransfer.files[0].name;
+        }
+    });
+    fileInput.addEventListener('change', () => {
+        fileName.textContent = fileInput.files[0]?.name || '';
+    });
+}
+</script>
+{% endblock %}

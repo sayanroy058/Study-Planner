@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyForge AI Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,300..800&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+    <div class="bg-grid"></div>
+
+    <header class="hero reveal">
+        <p class="eyebrow">SMART STUDY PLANNER</p>
+        <h1>StudyForge AI</h1>
+        <p class="lead">
+            Turn your goals into a practical roadmap, ask doubts instantly, generate quizzes,
+            and summarize your documents using Gemini-powered intelligence.
+        </p>
+        <div class="hero-tags">
+            <span>Planner</span>
+            <span>AI Doubt Solver</span>
+            <span>Quiz Builder</span>
+            <span>Doc Summarizer</span>
+            <span>Flashcards</span>
+            <span>Revision Rescue</span>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <section class="panel wide reveal" style="--delay: 0.05s">
+            <div class="panel-heading">
+                <h2>Create Study Plan</h2>
+                <p>Personalized schedule with milestones and fallback options.</p>
+            </div>
+
+            <form id="plan-form" class="form-grid">
+                <label>
+                    Goal
+                    <input type="text" name="goal" placeholder="Example: Crack Data Structures in 8 weeks" required />
+                </label>
+                <label>
+                    Current Level
+                    <select name="currentLevel">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate" selected>Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </label>
+                <label>
+                    Hours Per Day
+                    <input type="number" name="hoursPerDay" min="1" max="16" value="3" required />
+                </label>
+                <label>
+                    Days Per Week
+                    <input type="number" name="daysPerWeek" min="1" max="7" value="6" required />
+                </label>
+                <label>
+                    Target Date
+                    <input type="date" name="targetDate" />
+                </label>
+                <label class="full-width">
+                    Focus Areas
+                    <input type="text" name="focusAreas" placeholder="Arrays, Trees, Dynamic Programming" />
+                </label>
+                <label class="full-width">
+                    Extra Notes
+                    <textarea name="notes" rows="3" placeholder="Any constraints, exam pattern, or preferred learning style"></textarea>
+                </label>
+                <button type="submit" class="btn-primary">Generate Plan</button>
+            </form>
+
+            <div id="plan-output" class="result-box">
+                <p class="placeholder">Your AI-generated study plan appears here.</p>
+            </div>
+            <div class="result-actions">
+                <button type="button" class="btn-secondary" data-download-target="plan-output" data-download-name="study-plan.md">
+                    Download Plan
+                </button>
+            </div>
+        </section>
+
+        <section class="panel narrow reveal" style="--delay: 0.1s">
+            <div class="panel-heading">
+                <h2>Generate Quiz</h2>
+                <p>Practice with mixed conceptual and short-answer questions.</p>
+            </div>
+
+            <form id="quiz-form" class="form-grid">
+                <label>
+                    Topic
+                    <input type="text" name="topic" placeholder="Operating Systems" required />
+                </label>
+                <label>
+                    Difficulty
+                    <select name="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </label>
+                <label>
+                    Question Count
+                    <input type="number" name="questionCount" min="3" max="20" value="8" required />
+                </label>
+                <button type="submit" class="btn-primary">Generate Quiz</button>
+            </form>
+
+            <div id="quiz-output" class="result-box">
+                <p class="placeholder">Your quiz will be generated here.</p>
+            </div>
+            <div class="result-actions">
+                <button type="button" class="btn-secondary" data-download-target="quiz-output" data-download-name="quiz.md">
+                    Download Quiz
+                </button>
+            </div>
+        </section>
+
+        <section class="panel wide reveal" style="--delay: 0.15s">
+            <div class="panel-heading">
+                <h2>Upload And Summarize</h2>
+                <p>Supported: TXT, MD, PDF, DOCX</p>
+            </div>
+
+            <form id="summary-form" class="form-grid">
+                <label class="full-width">
+                    Select File
+                    <input type="file" name="file" accept=".txt,.md,.pdf,.docx" required />
+                </label>
+                <button type="submit" class="btn-primary">Summarize Document</button>
+            </form>
+
+            <div id="summary-output" class="result-box">
+                <p class="placeholder">Document summary appears here.</p>
+            </div>
+            <div class="result-actions">
+                <button type="button" class="btn-secondary" data-download-target="summary-output" data-download-name="document-summary.md">
+                    Download Summary
+                </button>
+            </div>
+        </section>
+
+        <section class="panel narrow reveal" style="--delay: 0.2s">
+            <div class="panel-heading">
+                <h2>Ask AI Doubts</h2>
+                <p>Get explanation, example, and a mini practice task.</p>
+            </div>
+
+            <form id="chat-form" class="form-grid">
+                <label class="full-width">
+                    Your Question
+                    <textarea name="question" rows="3" placeholder="Explain the difference between process and thread." required></textarea>
+                </label>
+                <label class="full-width">
+                    Optional Context
+                    <input type="text" name="context" placeholder="I am preparing for university viva." />
+                </label>
+                <button type="submit" class="btn-primary">Ask AI</button>
+            </form>
+
+            <div id="chat-output" class="chat-box">
+                <p class="placeholder">Your conversation will appear here.</p>
+            </div>
+            <div class="result-actions">
+                <button type="button" id="download-chat" class="btn-secondary">Download Chat</button>
+                <button type="button" id="clear-chat" class="btn-secondary danger">Clear Chat</button>
+            </div>
+        </section>
+
+        <section class="panel wide reveal" style="--delay: 0.25s">
+            <div class="panel-heading">
+                <h2>AI Flashcards</h2>
+                <p>Create rapid-review Q/A cards for retention.</p>
+            </div>
+
+            <form id="flashcards-form" class="form-grid">
+                <label>
+                    Topic
+                    <input type="text" name="topic" placeholder="Computer Networks" required />
+                </label>
+                <label>
+                    Difficulty
+                    <select name="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </label>
+                <label>
+                    Card Count
+                    <input type="number" name="cardCount" min="4" max="25" value="10" required />
+                </label>
+                <button type="submit" class="btn-primary">Generate Flashcards</button>
+            </form>
+
+            <div id="flashcards-output" class="result-box">
+                <p class="placeholder">Flashcards will appear here.</p>
+            </div>
+            <div class="result-actions">
+                <button type="button" class="btn-secondary" data-download-target="flashcards-output" data-download-name="flashcards.md">
+                    Download Flashcards
+                </button>
+            </div>
+        </section>
+
+        <section class="panel narrow reveal" style="--delay: 0.3s">
+            <div class="panel-heading">
+                <h2>7-Day Revision Plan</h2>
+                <p>Recovery strategy when you are behind schedule.</p>
+            </div>
+
+            <form id="revision-form" class="form-grid">
+                <label class="full-width">
+                    Topic
+                    <input type="text" name="topic" placeholder="DBMS" required />
+                </label>
+                <label class="full-width">
+                    Weak Areas
+                    <textarea name="weakAreas" rows="3" placeholder="Normalization, indexing, joins"></textarea>
+                </label>
+                <label>
+                    Hours Per Day
+                    <input type="number" name="hoursPerDay" min="1" max="16" value="2" required />
+                </label>
+                <button type="submit" class="btn-primary">Generate Revision Plan</button>
+            </form>
+
+            <div id="revision-output" class="result-box">
+                <p class="placeholder">Your 7-day plan appears here.</p>
+            </div>
+            <div class="result-actions">
+                <button type="button" class="btn-secondary" data-download-target="revision-output" data-download-name="revision-plan.md">
+                    Download Revision Plan
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">Built with Flask and Gemini API</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

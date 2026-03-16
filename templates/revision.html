@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Revision Plan — StudyForge AI{% endblock %}
+
+{% block content %}
+<div class="feature-page">
+    <header class="page-header reveal">
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="back-link">← Dashboard</a>
+            <h1>🔄 Revision Rescue</h1>
+            <p class="page-lead">Behind schedule? Get a 7-day adaptive plan to recover fast.</p>
+        </div>
+    </header>
+
+    <div class="feature-layout">
+        <div class="feature-form-panel reveal" style="--delay:0.05s">
+            <form id="revision-form" class="form-grid">
+                <label class="full-width">
+                    Primary Topic
+                    <input type="text" name="topic" placeholder="e.g. DBMS, Organic Chemistry" required />
+                </label>
+                <label class="full-width">
+                    Weak Areas
+                    <textarea name="weakAreas" rows="3" placeholder="e.g. Normalization, indexing, joins"></textarea>
+                </label>
+                <label class="full-width">
+                    Hours Available Per Day
+                    <input type="number" name="hoursPerDay" min="1" max="16" value="2" required />
+                </label>
+                <button type="submit" class="btn-primary full-width">Generate Revision Plan ✨</button>
+            </form>
+        </div>
+
+        <div class="feature-result-panel reveal" style="--delay:0.1s">
+            <div class="result-toolbar">
+                <span class="result-label">Your 7-Day Plan</span>
+                <button type="button" class="btn-icon-sm" data-download-target="revision-output" data-download-name="revision-plan.md" title="Download">⬇ Download</button>
+            </div>
+            <div id="revision-output" class="result-box">
+                <p class="placeholder">Your 7-day revision plan appears here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

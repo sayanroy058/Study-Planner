@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Home — StudyForge AI{% endblock %}
+{% block body_class %}landing-page{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="landing-hero">
+    <div class="landing-hero-inner">
+        <span class="eyebrow reveal">SMART STUDY PLANNER</span>
+        <h1 class="landing-title reveal" style="--delay:0.05s">
+            Learn faster with<br/><span class="gradient-text">AI-powered</span> study tools
+        </h1>
+        <p class="landing-lead reveal" style="--delay:0.1s">
+            Turn your goals into actionable roadmaps. Generate quizzes, flashcards, summaries, and
+            instant answers — all powered by Gemini AI.
+        </p>
+        <div class="landing-cta reveal" style="--delay:0.15s">
+            <a href="{{ url_for('register') }}" class="btn-hero-primary">Get Started Free</a>
+            <a href="{{ url_for('login') }}" class="btn-hero-secondary">Sign In</a>
+        </div>
+    </div>
+    <div class="landing-hero-art reveal" style="--delay:0.2s">
+        <div class="hero-card-grid">
+            <div class="hero-mini-card">📅<span>Study Plan</span></div>
+            <div class="hero-mini-card accent2">🎯<span>Quiz</span></div>
+            <div class="hero-mini-card accent3">🃏<span>Flashcards</span></div>
+            <div class="hero-mini-card">💬<span>Ask AI</span></div>
+            <div class="hero-mini-card accent2">📄<span>Summarize</span></div>
+            <div class="hero-mini-card accent3">🔄<span>Revision</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Grid -->
+<section class="landing-features">
+    <div class="features-inner">
+        <h2 class="section-title reveal">Everything you need to ace your studies</h2>
+        <div class="features-grid">
+            <div class="feature-card reveal" style="--delay:0.05s">
+                <div class="feature-icon-wrap" style="--fi-color:#f05d23">📅</div>
+                <h3>Study Planner</h3>
+                <p>AI generates a personalized weekly roadmap with milestones, time blocks, and fallback days.</p>
+            </div>
+            <div class="feature-card reveal" style="--delay:0.1s">
+                <div class="feature-icon-wrap" style="--fi-color:#0f9d8b">🎯</div>
+                <h3>Quiz Generator</h3>
+                <p>Mixed MCQ and short-answer quizzes with answer keys and score interpretation.</p>
+            </div>
+            <div class="feature-card reveal" style="--delay:0.15s">
+                <div class="feature-icon-wrap" style="--fi-color:#7c3aed">🃏</div>
+                <h3>Flashcards</h3>
+                <p>Rapid-review Q&A pairs in a structured table — perfect for spaced repetition.</p>
+            </div>
+            <div class="feature-card reveal" style="--delay:0.2s">
+                <div class="feature-icon-wrap" style="--fi-color:#0ea5e9">💬</div>
+                <h3>AI Doubt Solver</h3>
+                <p>Ask any concept and get a teacher-style explanation with a mini practice task.</p>
+            </div>
+            <div class="feature-card reveal" style="--delay:0.25s">
+                <div class="feature-icon-wrap" style="--fi-color:#e11d48">📄</div>
+                <h3>Doc Summarizer</h3>
+                <p>Upload PDF, DOCX, TXT or MD files and get exam-ready summaries in seconds.</p>
+            </div>
+            <div class="feature-card reveal" style="--delay:0.3s">
+                <div class="feature-icon-wrap" style="--fi-color:#d97706">🔄</div>
+                <h3>Revision Rescue</h3>
+                <p>7-day adaptive revision plan with spaced repetition and mock test strategy for day 7.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="landing-cta-banner reveal">
+    <h2>Ready to transform how you study?</h2>
+    <p>Join thousands of students already using StudyForge AI — it's completely free.</p>
+    <a href="{{ url_for('register') }}" class="btn-hero-primary">Start Learning Now</a>
+</section>
+
+<footer class="landing-footer">
+    Built with Flask &amp; Gemini API &nbsp;·&nbsp; StudyForge AI &copy; 2026
+</footer>
+{% endblock %}
